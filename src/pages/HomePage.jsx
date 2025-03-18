@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { ChevronRight, Clock, MapPin, Phone } from "lucide-react"
 import { Button } from "../components/ui/button"
+import { motion } from "framer-motion";
+import { Ambulance, Baby, Hospital, Stethoscope, Bed, Syringe } from "lucide-react";
 
 function HomePage() {
   return (
@@ -9,34 +11,55 @@ function HomePage() {
       <section className="relative bg-gradient-to-r from-blue-50 to-blue-100">
         <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-8">
-            <div className="flex flex-col justify-center space-y-6">
+            <motion.div
+              className="flex flex-col justify-center space-y-6"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
               <div>
                 <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl lg:text-6xl">
                   Sai Anand Hospital
                 </h1>
-                <p className="mt-4 text-xl text-muted-foreground">
+                <motion.p
+                  className="mt-4 text-xl text-muted-foreground"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
                   Specialized pediatric care with a gentle touch. Your child's health is our priority.
-                </p>
+                </motion.p>
               </div>
-              <div className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
-                <Button asChild size="lg" className="font-semibold">
+              <motion.div
+                className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+              >
+                <Button asChild size="lg" variant="default" className=" font-semibold shadow-lg hover:shadow-xl transition">
                   <Link to="/appointment">Book an Appointment</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="font-semibold">
-                  <Link to="/services">
-                    Our Services
-                    <ChevronRight className="ml-2 h-4 w-4" />
+                <Button asChild variant="outline" size="lg" className="font-semibold shadow-md hover:shadow-lg transition">
+                  <Link to="/services" className="flex items-center">
+                    Our Services <ChevronRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-              </div>
-            </div>
-            <div className="relative h-64 overflow-hidden rounded-xl sm:h-80 lg:h-full">
+
+              </motion.div>
+            </motion.div>
+            <motion.div
+              className="relative h-64 overflow-hidden rounded-xl sm:h-80 lg:h-full shadow-xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+            // whileHover={{ scale: 1.05 }}
+            >
               <img
-                src="https://placehold.co/800x600/e6f7ff/1e88e5?text=Happy+Children+with+Doctor"
+                src="/Images/hero.jpg"
                 alt="Happy children with doctor"
                 className="h-full w-full object-cover"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -44,29 +67,38 @@ function HomePage() {
       {/* Quick Info */}
       <section className="bg-white py-8">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="flex items-center space-x-3 rounded-lg border p-4">
-              <Phone className="h-10 w-10 text-primary" />
-              <div>
-                <h3 className="font-medium">Emergency Contact</h3>
-                <p className="text-muted-foreground">+91 1234567890</p>
+          <motion.div
+            className="flex flex-col justify-center space-y-6"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+
+              <div className="flex items-center space-x-3 rounded-lg border p-4">
+                <Phone className="h-10 w-10 text-primary" />
+                <div>
+                  <h3 className="font-medium">Emergency Contact</h3>
+                  <p className="text-muted-foreground">+91 1234567890</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center space-x-3 rounded-lg border p-4">
-              <Clock className="h-10 w-10 text-primary" />
-              <div>
-                <h3 className="font-medium">Working Hours</h3>
-                <p className="text-muted-foreground">24/7 Emergency Care</p>
+              <div className="flex items-center space-x-3 rounded-lg border p-4">
+                <Clock className="h-10 w-10 text-primary" />
+                <div>
+                  <h3 className="font-medium">Working Hours</h3>
+                  <p className="text-muted-foreground">24/7 Emergency Care</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center space-x-3 rounded-lg border p-4">
-              <MapPin className="h-10 w-10 text-primary" />
-              <div>
-                <h3 className="font-medium">Location</h3>
-                <p className="text-muted-foreground">Sai Anand Hospital, India</p>
+              <div className="flex items-center space-x-3 rounded-lg border p-4">
+                <MapPin className="h-10 w-10 text-primary" />
+                <div>
+                  <h3 className="font-medium">Location</h3>
+                  <p className="text-muted-foreground">Sai Anand Hospital, India</p>
+                </div>
               </div>
+
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -84,32 +116,32 @@ function HomePage() {
               {
                 title: "Pediatric Emergency",
                 description: "24/7 emergency care with trained nursing staff specialized in pediatric emergencies",
-                icon: "🚑",
+                icon: <Ambulance className="h-8 w-8 text-primary" />,
               },
               {
                 title: "Neonatal Intensive Care (NICU)",
                 description: "Advanced care for premature or critically ill newborns",
-                icon: "👶",
+                icon: <Baby className="h-8 w-8 text-primary" />,
               },
               {
                 title: "Pediatric Intensive Care (PICU)",
                 description: "Specialized care for children with life-threatening conditions",
-                icon: "🏥",
+                icon: <Hospital className="h-8 w-8 text-primary" />,
               },
               {
                 title: "Outpatient Clinics",
                 description: "Routine check-ups, vaccinations, and treatment for minor illnesses",
-                icon: "🩺",
+                icon: <Stethoscope className="h-8 w-8 text-primary" />,
               },
               {
                 title: "Indoor Patient Department",
                 description: "Comfortable inpatient facilities for children requiring hospitalization",
-                icon: "🛏️",
+                icon: <Bed className="h-8 w-8 text-primary" />,
               },
               {
                 title: "Pediatric Surgery",
                 description: "Specialized surgical procedures with equipment designed for children",
-                icon: "⚕️",
+                icon: <Syringe className="h-8 w-8 text-primary" />,
               },
             ].map((service, index) => (
               <div key={index} className="rounded-lg bg-white p-6 shadow-sm transition-all hover:shadow-md">
@@ -142,32 +174,37 @@ function HomePage() {
                 name: "Dr. Pushpak Harish Palod",
                 credentials: "MBBS, MD, (Ped) Fellowship in Neonatology (IAP)",
                 specialty: "Pediatrician and Neonatologist",
+                img: "/Images/doctor.jpg",
               },
               {
                 name: "Dr. Nikita Sanjay Gadakh-Tarle",
                 credentials: "BAMS, MD",
                 specialty: "Pediatrician and Neonatologist",
+                img: "/Images/nurse.jpg",
               },
               {
                 name: "Dr. Sunil Vishwanath Sabale",
                 credentials: "BAMS, CCH",
                 specialty: "More than 10 years experience in Pediatric field",
+                img: "/Images/nurse.jpg",
               },
               {
                 name: "Dr. Rakesh Sheshrao Pawar",
                 credentials: "BAMS, DIPCH",
                 specialty: "More than 10 years experience in Pediatric field",
+                img: "/Images/doctor.jpg",
               },
               {
                 name: "Dr. Tushar Vitthal Yeole",
                 credentials: "BHMS, CCH, CCMP",
                 specialty: "More than 10 years experience in Pediatric field",
+                img: "/Images/doctor.jpg",
               },
             ].map((doctor, index) => (
               <div key={index} className="rounded-lg bg-white p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="mb-4 h-48 w-full overflow-hidden rounded-lg bg-gray-100">
                   <img
-                    src={`https://placehold.co/300x300/e6f7ff/1e88e5?text=Dr.`}
+                    src={doctor.img}
                     alt={doctor.name}
                     className="h-full w-full object-cover"
                   />
