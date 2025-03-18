@@ -33,10 +33,10 @@ const SheetContent = ({ children, side = "right", className }) => {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50">
+    <div className="fixed inset-0 z-[1000] bg-black/50">
       <div
         className={cn(
-          "fixed inset-y-0 bg-background p-6 shadow-lg transition ease-in-out",
+          "fixed inset-y-0 bg-white p-6 shadow-lg transition ease-in-out h-screen", // Added h-screen
           side === "left" ? "left-0 border-r" : "right-0 border-l",
           "w-3/4 sm:max-w-sm",
           className,
@@ -77,4 +77,3 @@ function X(props) {
     </svg>
   )
 }
-
