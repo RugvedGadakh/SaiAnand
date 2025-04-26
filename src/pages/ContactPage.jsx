@@ -35,7 +35,9 @@ function ContactPage() {
                   <MapPin className="mr-4 h-6 w-6 text-primary" />
                   <div>
                     <h3 className="font-medium">Our Location</h3>
-                    <p className="mt-1 text-muted-foreground">Sai Anand Hospital, [Hospital Address], India</p>
+                    <a href="https://maps.app.goo.gl/rzbL7zqhVeccdtaUA">
+                      <p className="mt-1 text-muted-foreground">4th and 5th floor, of Govind Medicare Building, bus stop, last, Gangapur - Satpur Link Rd, Near Ashoknagar Last Bus Stop, Ashoknagar, Satpur Colony, Nashik, Maharashtra 422012</p>
+                    </a>
                   </div>
                 </div>
 
@@ -43,11 +45,12 @@ function ContactPage() {
                   <Phone className="mr-4 h-6 w-6 text-primary" />
                   <div>
                     <h3 className="font-medium">Phone Numbers</h3>
-                    <p className="mt-1 text-muted-foreground">
-                      Main: +91 1234567890
-                      <br />
-                      Emergency: +91 9876543210
-                    </p>
+                    <a href="tel:+917709186911">
+                      <p className="mt-1 text-muted-foreground">
+
+                        Main: +91 77091 86911
+                      </p>
+                    </a>
                   </div>
                 </div>
 
@@ -55,7 +58,9 @@ function ContactPage() {
                   <Mail className="mr-4 h-6 w-6 text-primary" />
                   <div>
                     <h3 className="font-medium">Email</h3>
-                    <p className="mt-1 text-muted-foreground">info@saianand.example.com</p>
+                    <a href="mailto:saianandhospital2025@gmail.com">
+                      <p className="mt-1 text-muted-foreground">saianandhospital2025@gmail.com</p>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -65,15 +70,6 @@ function ContactPage() {
                 <div className="mt-2 space-y-2 text-muted-foreground">
                   <p>
                     <span className="font-medium">Emergency Department:</span> 24 hours, 7 days a week
-                  </p>
-                  <p>
-                    <span className="font-medium">Outpatient Clinics:</span>
-                    <br />
-                    Monday - Friday: 9:00 AM - 6:00 PM
-                    <br />
-                    Saturday: 9:00 AM - 2:00 PM
-                    <br />
-                    Sunday: Closed (Emergency services only)
                   </p>
                 </div>
               </div>

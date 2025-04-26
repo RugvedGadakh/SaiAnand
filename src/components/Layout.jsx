@@ -166,9 +166,9 @@ function Layout({ children }) {
             <div>
               <h3 className="mb-4 text-sm font-medium">Contact</h3>
               <ul className="space-y-2 text-sm">
-                <li className="text-muted-foreground">Sai Anand Hospital, [Hospital Address], India</li>
-                <li className="text-muted-foreground">Phone: +91 1234567890</li>
-                <li className="text-muted-foreground">Email: info@saianand.example.com</li>
+                <li className="text-muted-foreground"><a href="https://maps.app.goo.gl/5tt7s6RRGcf4yjdA6">Sai Anand Hospital, India</a></li>
+                <li className="text-muted-foreground"><a href="tel:+917709186911"> Phone: +91 7709186911 </a></li>
+                <li className="text-muted-foreground"><a href="mailto:saianandhospital2025@gmail.com">Email: saianandhospital2025@gmail.com</a></li>
               </ul>
             </div>
           </div>
