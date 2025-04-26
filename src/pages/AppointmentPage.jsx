@@ -1,19 +1,17 @@
-"use client"
-
-import { useState } from "react"
-import { CalendarIcon } from "lucide-react"
-import { format } from "date-fns"
-import { cn } from "../lib/utils"
-import { Button } from "../components/ui/button"
-import { Calendar } from "../components/ui/calendar"
-import { Input } from "../components/ui/input"
-import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
-import { Textarea } from "../components/ui/textarea"
-import { toast } from "../lib/toast"
+import { useState } from "react";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "../lib/utils";
+import { Button } from "../components/ui/button";
+import { Calendar } from "../components/ui/calendar";
+import { Input } from "../components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { Textarea } from "../components/ui/textarea";
 
 function AppointmentPage() {
-  const [date, setDate] = useState()
+  const [date, setDate] = useState();
+  
   const [formData, setFormData] = useState({
     name: "",
     childName: "",
@@ -24,50 +22,64 @@ function AppointmentPage() {
     department: "",
     time: "",
     reason: "",
-  })
+  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent the default form submission
 
-  const handleSelectChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    // Validate form
+    // Validation: Trigger form submission only if all required fields are filled
     if (!formData.name || !formData.childName || !formData.phone || !date || !formData.time || !formData.department) {
-      toast({
-        title: "Missing information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      })
-      return
+      // alert("Please fill in all required fields.");
+      return;
     }
 
-    // Form submission would go here
-    toast({
-      title: "Appointment requested",
-      description: "We'll contact you shortly to confirm your appointment.",
-    })
+    try {
+      const url = "https://script.google.com/macros/s/AKfycbyTuaDGygyHgsbx--rY7p3fYHYWQmEiFBk-4NHBs5Bi_v6Q_HlnsqT33LvnymgqsLCR/exec";
 
-    // Reset form
-    setFormData({
-      name: "",
-      childName: "",
-      childAge: "",
-      phone: "",
-      email: "",
-      doctor: "",
-      department: "",
-      time: "",
-      reason: "",
-    })
-    setDate(undefined)
-  }
+      const formBody = new URLSearchParams({
+        Name: formData.name,
+        ChildName: formData.childName,
+        ChildAge: formData.childAge,
+        Phone: formData.phone,
+        Email: formData.email,
+        Department: formData.department,
+        Doctor: formData.doctor,
+        Date: date ? format(date, "PPP") : "",
+        Time: formData.time,
+        Reason: formData.reason,
+      }).toString();
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formBody,
+      });
+
+      const data = await response.text();
+      alert(data);
+
+      alert("Appointment requested. We'll contact you shortly to confirm your appointment.");
+
+      // Reset form after successful submission
+      setFormData({
+        name: "",
+        childName: "",
+        childAge: "",
+        phone: "",
+        email: "",
+        doctor: "",
+        department: "",
+        time: "",
+        reason: "",
+      });
+      setDate(undefined);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again later.");
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -75,8 +87,12 @@ function AppointmentPage() {
       <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">Book an Appointment</h1>
-            <p className="mt-4 text-xl text-muted-foreground">Schedule a consultation with our pediatric specialists</p>
+            <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">
+              Book an Appointment
+            </h1>
+            <p className="mt-4 text-xl text-muted-foreground">
+              Schedule a consultation with our pediatric specialists
+            </p>
           </div>
         </div>
       </section>
@@ -87,78 +103,68 @@ function AppointmentPage() {
           <div className="rounded-lg border bg-card p-6 shadow-sm sm:p-8">
             <form onSubmit={handleSubmit}>
               <div className="grid gap-6 sm:grid-cols-2">
+                {/* Parent/Guardian Name */}
                 <div className="space-y-2">
-                  <label
-                    htmlFor="name"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="name" className="text-sm font-medium leading-none">
                     Parent/Guardian Name <span className="text-red-500">*</span>
                   </label>
                   <Input
                     id="name"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
                     placeholder="Full name"
                     required
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                 </div>
 
+                {/* Child's Name */}
                 <div className="space-y-2">
-                  <label
-                    htmlFor="childName"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="childName" className="text-sm font-medium leading-none">
                     Child's Name <span className="text-red-500">*</span>
                   </label>
                   <Input
                     id="childName"
                     name="childName"
                     value={formData.childName}
-                    onChange={handleChange}
                     placeholder="Child's full name"
                     required
+                    onChange={(e) => setFormData({ ...formData, childName: e.target.value })}
                   />
                 </div>
 
+                {/* Child's Age */}
                 <div className="space-y-2">
-                  <label
-                    htmlFor="childAge"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="childAge" className="text-sm font-medium leading-none">
                     Child's Age
                   </label>
                   <Input
                     id="childAge"
                     name="childAge"
                     value={formData.childAge}
-                    onChange={handleChange}
                     placeholder="Age in years or months"
+                    onChange={(e) => setFormData({ ...formData, childAge: e.target.value })}
                   />
                 </div>
 
+                {/* Phone Number */}
                 <div className="space-y-2">
-                  <label
-                    htmlFor="phone"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="phone" className="text-sm font-medium leading-none">
                     Phone Number <span className="text-red-500">*</span>
                   </label>
                   <Input
                     id="phone"
                     name="phone"
                     value={formData.phone}
-                    onChange={handleChange}
                     placeholder="Contact number"
                     required
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
                 </div>
 
+                {/* Email Address */}
                 <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="email" className="text-sm font-medium leading-none">
                     Email Address
                   </label>
                   <Input
@@ -166,18 +172,19 @@ function AppointmentPage() {
                     name="email"
                     type="email"
                     value={formData.email}
-                    onChange={handleChange}
                     placeholder="Your email"
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
                 </div>
 
+                {/* Department */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  <label className="text-sm font-medium leading-none">
                     Department <span className="text-red-500">*</span>
                   </label>
                   <Select
                     value={formData.department}
-                    onValueChange={(value) => handleSelectChange("department", value)}
+                    onValueChange={(value) => setFormData({ ...formData, department: value })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select department" />
@@ -193,11 +200,15 @@ function AppointmentPage() {
                   </Select>
                 </div>
 
+                {/* Doctor */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  <label className="text-sm font-medium leading-none">
                     Preferred Doctor
                   </label>
-                  <Select value={formData.doctor} onValueChange={(value) => handleSelectChange("doctor", value)}>
+                  <Select
+                    value={formData.doctor}
+                    onValueChange={(value) => setFormData({ ...formData, doctor: value })}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select doctor (optional)" />
                     </SelectTrigger>
@@ -211,8 +222,9 @@ function AppointmentPage() {
                   </Select>
                 </div>
 
+                {/* Date Picker */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  <label className="text-sm font-medium leading-none">
                     Preferred Date <span className="text-red-500">*</span>
                   </label>
                   <Popover>
@@ -229,19 +241,25 @@ function AppointmentPage() {
                       <Calendar
                         mode="single"
                         selected={date}
-                        onSelect={setDate}
+                        onSelect={(selectedDate) => {
+                          setDate(selectedDate);
+                        }}
                         initialFocus
-                        disabled={(date) => date < new Date()}
+                        disabled={(day) => day < new Date()}
                       />
                     </PopoverContent>
                   </Popover>
                 </div>
 
+                {/* Time */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  <label className="text-sm font-medium leading-none">
                     Preferred Time <span className="text-red-500">*</span>
                   </label>
-                  <Select value={formData.time} onValueChange={(value) => handleSelectChange("time", value)}>
+                  <Select
+                    value={formData.time}
+                    onValueChange={(value) => setFormData({ ...formData, time: value })}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select time" />
                     </SelectTrigger>
@@ -253,40 +271,28 @@ function AppointmentPage() {
                   </Select>
                 </div>
 
+                {/* Reason */}
                 <div className="space-y-2 sm:col-span-2">
-                  <label
-                    htmlFor="reason"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="reason" className="text-sm font-medium leading-none">
                     Reason for Visit
                   </label>
                   <Textarea
                     id="reason"
                     name="reason"
                     value={formData.reason}
-                    onChange={handleChange}
-                    placeholder="Please briefly describe the reason for your visit"
-                    className="min-h-[100px]"
+                    placeholder="Describe the reason for the appointment"
+                    onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
                   />
                 </div>
               </div>
 
-              <div className="mt-6">
-                <Button type="submit" className="w-full">
-                  Book Appointment
-                </Button>
-              </div>
-
-              <p className="mt-4 text-center text-sm text-muted-foreground">
-                Fields marked with <span className="text-red-500">*</span> are required
-              </p>
+              <Button type="submit" className="mt-6 w-full">Submit</Button>
             </form>
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default AppointmentPage
-
+export default AppointmentPage;
