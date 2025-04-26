@@ -7,10 +7,12 @@ import AppointmentPage from "./pages/AppointmentPage"
 import ContactPage from "./pages/ContactPage"
 import AboutPage from "./pages/AboutPage"
 import "./index.css"
+import ScrollToTop from "./components/ScrollToTop"
 
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -1,17 +1,29 @@
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
 import { Heart, Menu } from "lucide-react"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
-
+import Logo from "../logo/logo.png"
 function Layout({ children }) {
+  const [open, setOpen] = useState(false)
+  const location = useLocation()
+
+  // Scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    setOpen(false) // close the mobile menu when route changes
+  }, [location])
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <Heart className="h-6 w-6 text-primary" />
+          <img src={Logo} alt="Sai Anand Hospital Logo" className="h-10 w-10" />
             <span className="text-xl font-bold">Sai Anand Hospital</span>
           </Link>
+
+          {/* Desktop Navbar */}
           <nav className="hidden md:flex md:gap-6">
             <Link to="/" className="text-sm font-medium hover:text-primary">
               Home
@@ -29,11 +41,13 @@ function Layout({ children }) {
               Contact
             </Link>
           </nav>
+
+          {/* Mobile Menu */}
           <div className="flex items-center gap-4">
             <Button asChild size="sm" className="hidden md:inline-flex">
               <Link to="/appointment">Book Appointment</Link>
             </Button>
-            <Sheet>
+            <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="md:hidden">
                   <Menu className="h-5 w-5" />
@@ -42,27 +56,27 @@ function Layout({ children }) {
               </SheetTrigger>
               <SheetContent side="right">
                 <div className="flex flex-col gap-6 py-6">
-                  <Link to="/" className="flex items-center gap-2">
+                  <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
                     <Heart className="h-6 w-6 text-primary" />
                     <span className="text-xl font-bold">Sai Anand Hospital</span>
                   </Link>
-                  <nav className="flex flex-col gap-4">
-                    <Link to="/" className="text-sm font-medium hover:text-primary">
+                  <nav className="flex flex-col gap-4 mt-4">
+                    <Link to="/" className="text-sm font-medium hover:text-primary" onClick={() => setOpen(false)}>
                       Home
                     </Link>
-                    <Link to="/about" className="text-sm font-medium hover:text-primary">
+                    <Link to="/about" className="text-sm font-medium hover:text-primary" onClick={() => setOpen(false)}>
                       About
                     </Link>
-                    <Link to="/services" className="text-sm font-medium hover:text-primary">
+                    <Link to="/services" className="text-sm font-medium hover:text-primary" onClick={() => setOpen(false)}>
                       Services
                     </Link>
-                    <Link to="/doctors" className="text-sm font-medium hover:text-primary">
+                    <Link to="/doctors" className="text-sm font-medium hover:text-primary" onClick={() => setOpen(false)}>
                       Doctors
                     </Link>
-                    <Link to="/contact" className="text-sm font-medium hover:text-primary">
+                    <Link to="/contact" className="text-sm font-medium hover:text-primary" onClick={() => setOpen(false)}>
                       Contact
                     </Link>
-                    <Button asChild size="sm" className="mt-2">
+                    <Button asChild size="sm" className="mt-4" onClick={() => setOpen(false)}>
                       <Link to="/appointment">Book Appointment</Link>
                     </Button>
                   </nav>
@@ -72,7 +86,11 @@ function Layout({ children }) {
           </div>
         </div>
       </header>
+
+      {/* Main Content */}
       <main className="flex-1">{children}</main>
+
+      {/* Footer */}
       <footer className="border-t bg-muted/40">
         <div className="container py-8 md:py-12">
           <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
@@ -176,4 +194,3 @@ function Layout({ children }) {
 }
 
 export default Layout
-

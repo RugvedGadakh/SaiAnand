@@ -174,31 +174,31 @@ function HomePage() {
                 name: "Dr. Pushpak Harish Palod",
                 credentials: "MBBS, MD, (Ped) Fellowship in Neonatology (IAP)",
                 specialty: "Pediatrician and Neonatologist",
-                img: "/Images/doctor.jpg",
+                img: "/Images/Doctors/pushpak_palod.jpg",
               },
               {
                 name: "Dr. Nikita Sanjay Gadakh-Tarle",
                 credentials: "BAMS, MD",
                 specialty: "Pediatrician and Neonatologist",
-                img: "/Images/nurse.jpg",
+                img: "/Images/Doctors/Nikita_Tarle.jpg",
               },
               {
                 name: "Dr. Sunil Vishwanath Sabale",
                 credentials: "BAMS, CCH",
                 specialty: "More than 10 years experience in Pediatric field",
-                img: "/Images/nurse.jpg",
+                img: "/Images/Doctors/Sunil_Sable.jpg",
               },
               {
                 name: "Dr. Rakesh Sheshrao Pawar",
                 credentials: "BAMS, DIPCH",
                 specialty: "More than 10 years experience in Pediatric field",
-                img: "/Images/doctor.jpg",
+                img: "/Images/Doctors/Rakesh_Pawar.jpg",
               },
               {
                 name: "Dr. Tushar Vitthal Yeole",
                 credentials: "BHMS, CCH, CCMP",
                 specialty: "More than 10 years experience in Pediatric field",
-                img: "/Images/doctor.jpg",
+                img: "/Images/Doctors/Tushar_Yeole.jpg",
               },
             ].map((doctor, index) => (
               <div key={index} className="rounded-lg bg-white p-6 shadow-sm transition-all hover:shadow-md">
