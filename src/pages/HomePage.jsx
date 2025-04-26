@@ -74,14 +74,15 @@ function HomePage() {
             transition={{ duration: 0.6 }}
           >
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-
+              <a href="tel:+917709186911">
               <div className="flex items-center space-x-3 rounded-lg border p-4">
                 <Phone className="h-10 w-10 text-primary" />
                 <div>
                   <h3 className="font-medium">Emergency Contact</h3>
-                  <p className="text-muted-foreground">+91 1234567890</p>
+                  <p className="text-muted-foreground">+91 77091 86911</p>
                 </div>
               </div>
+              </a>
               <div className="flex items-center space-x-3 rounded-lg border p-4">
                 <Clock className="h-10 w-10 text-primary" />
                 <div>
@@ -89,13 +90,15 @@ function HomePage() {
                   <p className="text-muted-foreground">24/7 Emergency Care</p>
                 </div>
               </div>
+              <a href="https://maps.app.goo.gl/m3GYzvsTmd2TpZRJ6">
               <div className="flex items-center space-x-3 rounded-lg border p-4">
                 <MapPin className="h-10 w-10 text-primary" />
                 <div>
                   <h3 className="font-medium">Location</h3>
-                  <p className="text-muted-foreground">Sai Anand Hospital, India</p>
+                  <p className="text-muted-foreground">Satpur Colony, Nashik, Maharashtra 422012</p>
                 </div>
               </div>
+              </a>
 
             </div>
           </motion.div>
